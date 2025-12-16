@@ -425,7 +425,7 @@ function updateQuoteSummary() {
 
     // Check minimum
     const customerType = document.getElementById('qqCustomerType').value;
-    const minimum = customerType === 'commercial' ? 250 : 150;
+    const minimum = customerType === 'commercial' ? 250 : 250;
     if (subtotal > 0 && subtotal < minimum) {
         showToast(`Minimum service fee is $${minimum} for ${customerType} jobs`, 'warning');
     }
@@ -1565,3 +1565,216 @@ function printDocument(html) {
     printContainer.innerHTML = html;
     window.print();
 }
+
+// ============================================
+// Marketing Functions
+// ============================================
+
+const AD_TEMPLATES = {
+    facebook: [
+        {
+            title: 'Driveway Special',
+            content: 'Your neighbors are upgrading their driveways - dont get left behind! BlacktopProz is offering FREE estimates this week only. Our asphalt work comes with a 1-YEAR WARRANTY and were 10-20% below competitors. DM us or call (601) 813-2533. First 5 customers get $100 OFF! #JacksonMS #Driveways #CurbAppeal'
+        },
+        {
+            title: 'Crack Attack',
+            content: 'Those small cracks in your driveway? Theyre getting worse every day. Water gets in, freezes, expands - and suddenly youve got potholes! BlacktopProz fixes cracks starting at just $1/ft. Weve helped 100+ Jackson families protect their driveways. Book your FREE inspection: (601) 813-2533 #AsphaltRepair #JacksonMS'
+        }
+    ],
+    twitter: [
+        {
+            title: 'Hot Deal',
+            content: 'Jackson homeowners: Your driveway says a lot about you. Make it say success. BlacktopProz - quality asphalt, honest prices, 1-year warranty. FREE estimates: (601) 813-2533 #JacksonMS #HomeImprovement'
+        },
+        {
+            title: 'Value Post',
+            content: 'Why pay more? BlacktopProz beats competitor pricing by 10-20% on driveways, sealcoating and repairs. Same quality, better price. Jacksons trusted paving pros since day one. Call Christopher: (601) 813-2533'
+        }
+    ],
+    nextdoor: [
+        {
+            title: 'Neighbor Intro',
+            content: 'Hey neighbors! Im Christopher OBriant, owner of BlacktopProz right here in Jackson. I started this business to bring honest, quality asphalt work to our community at fair prices. Whether you need a new driveway, sealcoating, or repairs - I personally oversee every job. My word is my bond. Check out our work and get a FREE estimate: (601) 813-2533. Looking forward to meeting you!'
+        },
+        {
+            title: 'Recommendation Ask',
+            content: 'Quick question for the neighborhood: Anyone else dealing with cracked or worn-out driveways? Ive been helping Jackson families with affordable asphalt repairs and new installations. If youve been putting it off because of cost concerns, lets talk - I promise fair pricing and quality work with a 1-year warranty. Happy to give free estimates to neighbors! (601) 813-2533 - Christopher at BlacktopProz'
+        }
+    ],
+    snapchat: [
+        {
+            title: 'Before/After Hook',
+            content: 'POV: Your driveway goes from BUSTED to BEAUTIFUL BlacktopProz transformation in Jackson MS! Swipe up for FREE estimate (601) 813-2533 #DrivewayGlowUp'
+        },
+        {
+            title: 'Flex Post',
+            content: 'That fresh asphalt smell hits different. Just finished another Jackson driveway! Want yours done? Were 10-20% cheaper than the competition. Tap to call: (601) 813-2533 #BlacktopProz #JacksonMS'
+        }
+    ],
+    tiktok: [
+        {
+            title: 'Satisfying Content',
+            content: 'Watch this satisfying driveway transformation. From cracked mess to smooth success! BlacktopProz Jackson MS - comment QUOTE and Ill DM you a free estimate! #SatisfyingVideos #DrivewayTransformation #JacksonMS #SmallBusiness #AsphaltLife'
+        },
+        {
+            title: 'Small Biz Story',
+            content: 'Small business owner life: Woke up at 5am, finished 3 driveways by noon, made a Jackson family happy. This is why I do it. BlacktopProz - quality work, honest prices. Link in bio for free estimates! #SmallBusinessOwner #Entrepreneur #JacksonMS #BlackOwned #Paving'
+        }
+    ],
+    linkedin: [
+        {
+            title: 'Commercial Focus',
+            content: 'Attention Jackson Business Owners and Property Managers: Your parking lot is the first impression customers get of your business. Cracked, faded asphalt sends the wrong message. BlacktopProz specializes in commercial asphalt services - parking lots, striping, sealcoating, and repairs. We work around your business hours and offer competitive commercial rates. Lets discuss your property needs: (601) 813-2533 or DM me directly. #CommercialRealEstate #PropertyManagement #JacksonMS #BusinessOwner'
+        },
+        {
+            title: 'Professional Intro',
+            content: 'Im Christopher OBriant, founder of BlacktopProz in Jackson, MS. After years in the industry, I started my own company with one mission: deliver quality asphalt work at honest prices. We serve both residential and commercial clients with driveways, parking lots, sealcoating, and repairs. Every job comes with a workmanship warranty because I stand behind our work 100%. If youre in the Jackson area and need paving services, Id welcome the opportunity to earn your business. (601) 813-2533 #Entrepreneur #SmallBusiness #JacksonMississippi'
+        }
+    ]
+};
+
+function getSocialConnections() {
+    return JSON.parse(localStorage.getItem('btp_social') || '{}');
+}
+
+function saveSocialConnections() {
+    const social = {
+        facebook: document.getElementById('socialFacebook').value,
+        twitter: document.getElementById('socialTwitter').value,
+        nextdoor: document.getElementById('socialNextdoor').value,
+        snapchat: document.getElementById('socialSnapchat').value,
+        tiktok: document.getElementById('socialTiktok').value,
+        linkedin: document.getElementById('socialLinkedin').value
+    };
+    localStorage.setItem('btp_social', JSON.stringify(social));
+    showToast('Social connections saved!', 'success');
+}
+
+function loadSocialConnections() {
+    const social = getSocialConnections();
+    if (document.getElementById('socialFacebook')) {
+        document.getElementById('socialFacebook').value = social.facebook || '';
+        document.getElementById('socialTwitter').value = social.twitter || '';
+        document.getElementById('socialNextdoor').value = social.nextdoor || '';
+        document.getElementById('socialSnapchat').value = social.snapchat || '';
+        document.getElementById('socialTiktok').value = social.tiktok || '';
+        document.getElementById('socialLinkedin').value = social.linkedin || '';
+    }
+}
+
+function deployAd(platform, adIndex) {
+    const ad = AD_TEMPLATES[platform][adIndex - 1];
+    if (!ad) {
+        showToast('Ad not found', 'error');
+        return;
+    }
+
+    const social = getSocialConnections();
+    const encodedContent = encodeURIComponent(ad.content);
+
+    // Copy to clipboard first
+    navigator.clipboard.writeText(ad.content).then(function() {
+        showToast('Ad copied to clipboard!', 'success');
+    }).catch(function() {
+        // Fallback for older browsers
+        var textarea = document.createElement('textarea');
+        textarea.value = ad.content;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('Ad copied to clipboard!', 'success');
+    });
+
+    // Open platform-specific share dialog or page
+    setTimeout(function() {
+        var url;
+        switch (platform) {
+            case 'facebook':
+                if (social.facebook) {
+                    url = social.facebook;
+                } else {
+                    url = 'https://www.facebook.com/';
+                }
+                break;
+            case 'twitter':
+                url = 'https://twitter.com/intent/tweet?text=' + encodedContent;
+                break;
+            case 'nextdoor':
+                if (social.nextdoor) {
+                    url = social.nextdoor;
+                } else {
+                    url = 'https://nextdoor.com/';
+                }
+                break;
+            case 'snapchat':
+                showToast('Content copied! Open Snapchat to paste.', 'info');
+                return;
+            case 'tiktok':
+                showToast('Content copied! Open TikTok to paste.', 'info');
+                return;
+            case 'linkedin':
+                url = 'https://www.linkedin.com/feed/?shareActive=true';
+                break;
+            default:
+                return;
+        }
+        window.open(url, '_blank');
+    }, 500);
+}
+
+function deployCustomAd() {
+    var platform = document.getElementById('customAdPlatform').value;
+    var content = document.getElementById('customAdContent').value;
+
+    if (!content.trim()) {
+        showToast('Please enter ad content', 'error');
+        return;
+    }
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(content).then(function() {
+        showToast('Custom ad copied to clipboard!', 'success');
+    }).catch(function() {
+        var textarea = document.createElement('textarea');
+        textarea.value = content;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('Custom ad copied to clipboard!', 'success');
+    });
+
+    var social = getSocialConnections();
+    var encodedContent = encodeURIComponent(content);
+
+    setTimeout(function() {
+        var url;
+        switch (platform) {
+            case 'facebook':
+                url = social.facebook || 'https://www.facebook.com/';
+                break;
+            case 'twitter':
+                url = 'https://twitter.com/intent/tweet?text=' + encodedContent;
+                break;
+            case 'nextdoor':
+                url = social.nextdoor || 'https://nextdoor.com/';
+                break;
+            case 'snapchat':
+            case 'tiktok':
+                showToast('Content copied! Open the app to paste.', 'info');
+                return;
+            case 'linkedin':
+                url = 'https://www.linkedin.com/feed/?shareActive=true';
+                break;
+            default:
+                return;
+        }
+        window.open(url, '_blank');
+    }, 500);
+}
+
+// Load social connections when marketing section is shown
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(loadSocialConnections, 100);
+});

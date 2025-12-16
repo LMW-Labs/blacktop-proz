@@ -62,6 +62,9 @@
                     <span class="icon">💰</span> Pricing Guide
                 </a>
                 <a href="#" class="nav-item" data-section="customers">
+                <a href="#" class="nav-item" data-section="marketing">
+                    <span class="icon">📣</span> Marketing
+                </a>
                     <span class="icon">👥</span> Customers
                 </a>
                 <a href="#" class="nav-item" data-section="settings">
@@ -455,7 +458,7 @@
                     <div class="minimums-grid">
                         <div class="minimum-item">
                             <span class="min-label">🏠 Residential</span>
-                            <span class="min-value">$150</span>
+                            <span class="min-value">$250</span>
                         </div>
                         <div class="minimum-item">
                             <span class="min-label">🏢 Commercial</span>
@@ -490,6 +493,214 @@
             </section>
 
             <!-- Settings Section -->
+            <!-- Marketing Section -->
+            <section id="marketingSection" class="content-section">
+                <div class="section-header">
+                    <h1>Marketing Hub</h1>
+                    <p>Connect your social media and deploy ads with one click</p>
+                </div>
+
+                <!-- Social Media Connections -->
+                <div class="form-card">
+                    <h3>Social Media Connections</h3>
+                    <p class="form-help">Add your social media profile URLs to enable one-click posting</p>
+
+                    <div class="social-connections-grid">
+                        <div class="social-connection-item">
+                            <div class="social-icon facebook">f</div>
+                            <div class="social-input-wrap">
+                                <label>Facebook Page URL</label>
+                                <input type="url" id="socialFacebook" placeholder="https://facebook.com/yourpage">
+                            </div>
+                        </div>
+
+                        <div class="social-connection-item">
+                            <div class="social-icon twitter">X</div>
+                            <div class="social-input-wrap">
+                                <label>X (Twitter) Profile</label>
+                                <input type="url" id="socialTwitter" placeholder="https://x.com/yourhandle">
+                            </div>
+                        </div>
+
+                        <div class="social-connection-item">
+                            <div class="social-icon nextdoor">N</div>
+                            <div class="social-input-wrap">
+                                <label>Nextdoor Business</label>
+                                <input type="url" id="socialNextdoor" placeholder="https://nextdoor.com/pages/yourbusiness">
+                            </div>
+                        </div>
+
+                        <div class="social-connection-item">
+                            <div class="social-icon snapchat">S</div>
+                            <div class="social-input-wrap">
+                                <label>Snapchat</label>
+                                <input type="text" id="socialSnapchat" placeholder="Your Snapchat username">
+                            </div>
+                        </div>
+
+                        <div class="social-connection-item">
+                            <div class="social-icon tiktok">T</div>
+                            <div class="social-input-wrap">
+                                <label>TikTok Profile</label>
+                                <input type="url" id="socialTiktok" placeholder="https://tiktok.com/@yourhandle">
+                            </div>
+                        </div>
+
+                        <div class="social-connection-item">
+                            <div class="social-icon linkedin">in</div>
+                            <div class="social-input-wrap">
+                                <label>LinkedIn Page</label>
+                                <input type="url" id="socialLinkedin" placeholder="https://linkedin.com/company/yourcompany">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="saveSocialConnections()">Save Connections</button>
+                </div>
+
+                <!-- Ad Templates by Platform -->
+                <div class="form-card">
+                    <h3>Facebook Ads</h3>
+                    <div class="ad-templates">
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Driveway Special</h4>
+                                <p>Your neighbors are upgrading their driveways - dont get left behind! BlacktopProz is offering FREE estimates this week only. Our asphalt work comes with a 1-YEAR WARRANTY and were 10-20% below competitors. DM us or call (601) 813-2533. First 5 customers get $100 OFF! #JacksonMS #Driveways #CurbAppeal</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('facebook', 1)">Deploy to Facebook</button>
+                        </div>
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Crack Attack</h4>
+                                <p>Those small cracks in your driveway? Theyre getting worse every day. Water gets in, freezes, expands - and suddenly youve got potholes! BlacktopProz fixes cracks starting at just $1/ft. Weve helped 100+ Jackson families protect their driveways. Book your FREE inspection: (601) 813-2533 #AsphaltRepair #JacksonMS</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('facebook', 2)">Deploy to Facebook</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>X (Twitter) Ads</h3>
+                    <div class="ad-templates">
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Hot Deal</h4>
+                                <p>Jackson homeowners: Your driveway says a lot about you. Make it say success. BlacktopProz - quality asphalt, honest prices, 1-year warranty. FREE estimates: (601) 813-2533 #JacksonMS #HomeImprovement</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('twitter', 1)">Deploy to X</button>
+                        </div>
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Value Post</h4>
+                                <p>Why pay more? BlacktopProz beats competitor pricing by 10-20% on driveways, sealcoating and repairs. Same quality, better price. Jacksons trusted paving pros since day one. Call Christopher: (601) 813-2533</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('twitter', 2)">Deploy to X</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Nextdoor Ads</h3>
+                    <div class="ad-templates">
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Neighbor Intro</h4>
+                                <p>Hey neighbors! Im Christopher OBriant, owner of BlacktopProz right here in Jackson. I started this business to bring honest, quality asphalt work to our community at fair prices. Whether you need a new driveway, sealcoating, or repairs - I personally oversee every job. My word is my bond. Check out our work and get a FREE estimate: (601) 813-2533. Looking forward to meeting you!</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('nextdoor', 1)">Deploy to Nextdoor</button>
+                        </div>
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Recommendation Ask</h4>
+                                <p>Quick question for the neighborhood: Anyone else dealing with cracked or worn-out driveways? Ive been helping Jackson families with affordable asphalt repairs and new installations. If youve been putting it off because of cost concerns, lets talk - I promise fair pricing and quality work with a 1-year warranty. Happy to give free estimates to neighbors! (601) 813-2533 - Christopher at BlacktopProz</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('nextdoor', 2)">Deploy to Nextdoor</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Snapchat Ads</h3>
+                    <div class="ad-templates">
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Before/After Hook</h4>
+                                <p>POV: Your driveway goes from BUSTED to BEAUTIFUL BlacktopProz transformation in Jackson MS! Swipe up for FREE estimate (601) 813-2533 #DrivewayGlowUp</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('snapchat', 1)">Copy for Snapchat</button>
+                        </div>
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Flex Post</h4>
+                                <p>That fresh asphalt smell hits different. Just finished another Jackson driveway! Want yours done? Were 10-20% cheaper than the competition. Tap to call: (601) 813-2533 #BlacktopProz #JacksonMS</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('snapchat', 2)">Copy for Snapchat</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>TikTok Ads</h3>
+                    <div class="ad-templates">
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Satisfying Content</h4>
+                                <p>Watch this satisfying driveway transformation. From cracked mess to smooth success! BlacktopProz Jackson MS - comment QUOTE and Ill DM you a free estimate! #SatisfyingVideos #DrivewayTransformation #JacksonMS #SmallBusiness #AsphaltLife</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('tiktok', 1)">Copy for TikTok</button>
+                        </div>
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Small Biz Story</h4>
+                                <p>Small business owner life: Woke up at 5am, finished 3 driveways by noon, made a Jackson family happy. This is why I do it. BlacktopProz - quality work, honest prices. Link in bio for free estimates! #SmallBusinessOwner #Entrepreneur #JacksonMS #BlackOwned #Paving</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('tiktok', 2)">Copy for TikTok</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>LinkedIn Ads</h3>
+                    <div class="ad-templates">
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Commercial Focus</h4>
+                                <p>Attention Jackson Business Owners and Property Managers: Your parking lot is the first impression customers get of your business. Cracked, faded asphalt sends the wrong message. BlacktopProz specializes in commercial asphalt services - parking lots, striping, sealcoating, and repairs. We work around your business hours and offer competitive commercial rates. Lets discuss your property needs: (601) 813-2533 or DM me directly. #CommercialRealEstate #PropertyManagement #JacksonMS #BusinessOwner</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('linkedin', 1)">Deploy to LinkedIn</button>
+                        </div>
+                        <div class="ad-card">
+                            <div class="ad-preview">
+                                <h4>Professional Intro</h4>
+                                <p>Im Christopher OBriant, founder of BlacktopProz in Jackson, MS. After years in the industry, I started my own company with one mission: deliver quality asphalt work at honest prices. We serve both residential and commercial clients with driveways, parking lots, sealcoating, and repairs. Every job comes with a workmanship warranty because I stand behind our work 100%. If youre in the Jackson area and need paving services, Id welcome the opportunity to earn your business. (601) 813-2533 #Entrepreneur #SmallBusiness #JacksonMississippi</p>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="deployAd('linkedin', 2)">Deploy to LinkedIn</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Ad Creator -->
+                <div class="form-card">
+                    <h3>Create Custom Ad</h3>
+                    <div class="form-group">
+                        <label for="customAdPlatform">Platform</label>
+                        <select id="customAdPlatform">
+                            <option value="facebook">Facebook</option>
+                            <option value="twitter">X (Twitter)</option>
+                            <option value="nextdoor">Nextdoor</option>
+                            <option value="snapchat">Snapchat</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="linkedin">LinkedIn</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customAdContent">Ad Content</label>
+                        <textarea id="customAdContent" rows="4" placeholder="Write your custom ad copy here..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="deployCustomAd()">Deploy Custom Ad</button>
+                </div>
+            </section>
+
             <section id="settingsSection" class="content-section">
                 <div class="section-header">
                     <h1>Settings</h1>
