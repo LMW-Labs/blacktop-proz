@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackTop Proz | Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="login-logo">
+                <!-- Logo placeholder -->
+                <div class="logo-placeholder">LOGO</div>
+            </div>
+            <h1>BlackTop Proz Admin</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter admin password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p id="loginError" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-placeholder small">LOGO</div>
+                <h2>BlackTop Proz</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-section="quotes">
+                    <span class="icon">📝</span> Quotes
+                </a>
+                <a href="#" class="nav-item" data-section="invoices">
+                    <span class="icon">📄</span> Invoices
+                </a>
+                <a href="#" class="nav-item" data-section="customers">
+                    <span class="icon">👥</span> Customers
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <span class="icon">⚙️</span> Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="nav-item">
+                    <span class="icon">🌐</span> View Website
+                </a>
+                <a href="#" class="nav-item" id="logoutBtn">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="content-section active">
+                <div class="section-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, Christopher</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalQuotes">0</span>
+                            <span class="stat-label">Total Quotes</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📄</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalInvoices">0</span>
+                            <span class="stat-label">Total Invoices</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalRevenue">$0</span>
+                            <span class="stat-label">Total Revenue</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="pendingQuotes">0</span>
+                            <span class="stat-label">Pending Quotes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div id="recentActivity" class="activity-list">
+                        <p class="no-data">No recent activity</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quotes Section -->
+            <section id="quotesSection" class="content-section">
+                <div class="section-header">
+                    <h1>Quotes</h1>
+                    <button class="btn btn-primary" id="newQuoteBtn">+ New Quote</button>
+                </div>
+
+                <!-- Quote Form -->
+                <div id="quoteFormContainer" class="form-container" style="display: none;">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h2 id="quoteFormTitle">Create New Quote</h2>
+                            <button class="btn-close" id="closeQuoteForm">&times;</button>
+                        </div>
+                        <form id="quoteForm">
+                            <input type="hidden" id="quoteId">
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customerName">Customer Name *</label>
+                                    <input type="text" id="customerName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerPhone">Phone *</label>
+                                    <input type="tel" id="customerPhone" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customerEmail">Email</label>
+                                    <input type="email" id="customerEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="quoteDate">Quote Date *</label>
+                                    <input type="date" id="quoteDate" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerAddress">Job Site Address *</label>
+                                <input type="text" id="customerAddress" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customerCity">City *</label>
+                                    <input type="text" id="customerCity" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerState">State</label>
+                                    <input type="text" id="customerState" value="MS">
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerZip">ZIP</label>
+                                    <input type="text" id="customerZip">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="serviceType">Service Type *</label>
+                                <select id="serviceType" required>
+                                    <option value="">Select a service...</option>
+                                    <option value="Driveway - New Installation">Driveway - New Installation</option>
+                                    <option value="Driveway - Replacement">Driveway - Replacement</option>
+                                    <option value="Driveway - Extension">Driveway - Extension</option>
+                                    <option value="Walkway - New Installation">Walkway - New Installation</option>
+                                    <option value="Walkway - Repair">Walkway - Repair</option>
+                                    <option value="Patio - Standard">Patio - Standard Finish</option>
+                                    <option value="Patio - Stamped">Patio - Stamped Concrete</option>
+                                    <option value="Patio - Stained">Patio - Stained/Colored</option>
+                                    <option value="Repair - Crack Filling">Repair - Crack Filling</option>
+                                    <option value="Repair - Leveling">Repair - Concrete Leveling</option>
+                                    <option value="Repair - Resurfacing">Repair - Resurfacing</option>
+                                    <option value="Gravel - New Driveway">Gravel - New Driveway</option>
+                                    <option value="Gravel - Regrading">Gravel - Regrading</option>
+                                    <option value="Gravel - Drainage">Gravel - Drainage Work</option>
+                                    <option value="Commercial - Parking Lot">Commercial - Parking Lot</option>
+                                    <option value="Commercial - Sidewalk">Commercial - Sidewalk</option>
+                                    <option value="Commercial - Loading Dock">Commercial - Loading Dock</option>
+                                    <option value="Other">Other (specify in description)</option>
+                                </select>
+                            </div>
+
+                            <h3>Line Items</h3>
+                            <div id="lineItems" class="line-items">
+                                <!-- Line items will be added here -->
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="addLineItem">+ Add Line Item</button>
+
+                            <div class="quote-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="subtotal">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <label for="taxRate">Tax Rate (%):</label>
+                                    <input type="number" id="taxRate" value="7" step="0.1" min="0" max="20">
+                                </div>
+                                <div class="total-row">
+                                    <span>Tax:</span>
+                                    <span id="taxAmount">$0.00</span>
+                                </div>
+                                <div class="total-row grand-total">
+                                    <span>Total:</span>
+                                    <span id="grandTotal">$0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quoteNotes">Notes / Special Instructions</label>
+                                <textarea id="quoteNotes" rows="4" placeholder="Enter any additional notes, special conditions, or instructions..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="validUntil">Quote Valid Until</label>
+                                <input type="date" id="validUntil">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancelQuote">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Quote</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quotes List -->
+                <div id="quotesList" class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Quote #</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotesTableBody">
+                            <tr class="no-data-row">
+                                <td colspan="7">No quotes yet. Create your first quote!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Invoices Section -->
+            <section id="invoicesSection" class="content-section">
+                <div class="section-header">
+                    <h1>Invoices</h1>
+                    <button class="btn btn-primary" id="newInvoiceBtn">+ New Invoice</button>
+                </div>
+
+                <!-- Invoice Form -->
+                <div id="invoiceFormContainer" class="form-container" style="display: none;">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h2 id="invoiceFormTitle">Create New Invoice</h2>
+                            <button class="btn-close" id="closeInvoiceForm">&times;</button>
+                        </div>
+                        <form id="invoiceForm">
+                            <input type="hidden" id="invoiceId">
+
+                            <div class="form-group">
+                                <label for="invoiceFromQuote">Create from Quote (Optional)</label>
+                                <select id="invoiceFromQuote">
+                                    <option value="">Start fresh...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="invoiceCustomerName">Customer Name *</label>
+                                    <input type="text" id="invoiceCustomerName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="invoiceCustomerPhone">Phone *</label>
+                                    <input type="tel" id="invoiceCustomerPhone" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="invoiceCustomerEmail">Email</label>
+                                    <input type="email" id="invoiceCustomerEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="invoiceDate">Invoice Date *</label>
+                                    <input type="date" id="invoiceDate" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="invoiceCustomerAddress">Job Site Address *</label>
+                                <input type="text" id="invoiceCustomerAddress" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="invoiceCustomerCity">City *</label>
+                                    <input type="text" id="invoiceCustomerCity" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="invoiceCustomerState">State</label>
+                                    <input type="text" id="invoiceCustomerState" value="MS">
+                                </div>
+                                <div class="form-group">
+                                    <label for="invoiceCustomerZip">ZIP</label>
+                                    <input type="text" id="invoiceCustomerZip">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="invoiceServiceType">Service Type *</label>
+                                <select id="invoiceServiceType" required>
+                                    <option value="">Select a service...</option>
+                                    <option value="Driveway - New Installation">Driveway - New Installation</option>
+                                    <option value="Driveway - Replacement">Driveway - Replacement</option>
+                                    <option value="Driveway - Extension">Driveway - Extension</option>
+                                    <option value="Walkway - New Installation">Walkway - New Installation</option>
+                                    <option value="Walkway - Repair">Walkway - Repair</option>
+                                    <option value="Patio - Standard">Patio - Standard Finish</option>
+                                    <option value="Patio - Stamped">Patio - Stamped Concrete</option>
+                                    <option value="Patio - Stained">Patio - Stained/Colored</option>
+                                    <option value="Repair - Crack Filling">Repair - Crack Filling</option>
+                                    <option value="Repair - Leveling">Repair - Concrete Leveling</option>
+                                    <option value="Repair - Resurfacing">Repair - Resurfacing</option>
+                                    <option value="Gravel - New Driveway">Gravel - New Driveway</option>
+                                    <option value="Gravel - Regrading">Gravel - Regrading</option>
+                                    <option value="Gravel - Drainage">Gravel - Drainage Work</option>
+                                    <option value="Commercial - Parking Lot">Commercial - Parking Lot</option>
+                                    <option value="Commercial - Sidewalk">Commercial - Sidewalk</option>
+                                    <option value="Commercial - Loading Dock">Commercial - Loading Dock</option>
+                                    <option value="Other">Other (specify in description)</option>
+                                </select>
+                            </div>
+
+                            <h3>Line Items</h3>
+                            <div id="invoiceLineItems" class="line-items">
+                                <!-- Line items will be added here -->
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="addInvoiceLineItem">+ Add Line Item</button>
+
+                            <div class="quote-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="invoiceSubtotal">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <label for="invoiceTaxRate">Tax Rate (%):</label>
+                                    <input type="number" id="invoiceTaxRate" value="7" step="0.1" min="0" max="20">
+                                </div>
+                                <div class="total-row">
+                                    <span>Tax:</span>
+                                    <span id="invoiceTaxAmount">$0.00</span>
+                                </div>
+                                <div class="total-row grand-total">
+                                    <span>Total:</span>
+                                    <span id="invoiceGrandTotal">$0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="invoiceNotes">Notes / Terms</label>
+                                <textarea id="invoiceNotes" rows="4" placeholder="Payment terms, special instructions, etc..."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dueDate">Due Date *</label>
+                                    <input type="date" id="dueDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="invoiceStatus">Status</label>
+                                    <select id="invoiceStatus">
+                                        <option value="pending">Pending</option>
+                                        <option value="sent">Sent</option>
+                                        <option value="paid">Paid</option>
+                                        <option value="overdue">Overdue</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancelInvoice">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Invoice</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Invoices List -->
+                <div id="invoicesList" class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Total</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoicesTableBody">
+                            <tr class="no-data-row">
+                                <td colspan="7">No invoices yet. Create your first invoice!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customersSection" class="content-section">
+                <div class="section-header">
+                    <h1>Customers</h1>
+                </div>
+                <div id="customersList" class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Total Jobs</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTableBody">
+                            <tr class="no-data-row">
+                                <td colspan="6">No customers yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settingsSection" class="content-section">
+                <div class="section-header">
+                    <h1>Settings</h1>
+                </div>
+                <div class="settings-card">
+                    <h2>Business Information</h2>
+                    <form id="settingsForm">
+                        <div class="form-group">
+                            <label for="businessName">Business Name</label>
+                            <input type="text" id="businessName" value="BlackTop Proz">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessPhone">Phone</label>
+                            <input type="tel" id="businessPhone" value="(601) 813-2533">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessEmail">Email</label>
+                            <input type="email" id="businessEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessAddress">Address</label>
+                            <textarea id="businessAddress" rows="3">Jackson, MS</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="defaultTaxRate">Default Tax Rate (%)</label>
+                            <input type="number" id="defaultTaxRate" value="7" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="invoiceTerms">Default Invoice Terms</label>
+                            <textarea id="invoiceTerms" rows="4">Payment is due within 30 days of invoice date. We accept cash, check, and major credit cards. A 3% fee applies to credit card payments.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="quoteTerms">Default Quote Terms</label>
+                            <textarea id="quoteTerms" rows="4">This quote is valid for 30 days. A 50% deposit is required to schedule work. Final payment is due upon completion.</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+                <div class="settings-card">
+                    <h2>Change Password</h2>
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Print Invoice Template (Hidden) -->
+    <div id="printInvoice" class="print-invoice">
+        <div class="invoice-header">
+            <div class="invoice-logo">
+                <!-- Logo placeholder -->
+                <div class="logo-placeholder print">LOGO</div>
+            </div>
+            <div class="invoice-company">
+                <h1>BlackTop Proz</h1>
+                <p>Professional Concrete & Gravel Services</p>
+                <p>(601) 813-2533</p>
+                <p>Jackson, MS</p>
+            </div>
+        </div>
+
+        <div class="invoice-title">
+            <h2>INVOICE</h2>
+            <div class="invoice-meta">
+                <p><strong>Invoice #:</strong> <span id="printInvoiceNumber"></span></p>
+                <p><strong>Date:</strong> <span id="printInvoiceDate"></span></p>
+                <p><strong>Due Date:</strong> <span id="printDueDate"></span></p>
+            </div>
+        </div>
+
+        <div class="invoice-addresses">
+            <div class="bill-to">
+                <h3>Bill To:</h3>
+                <p id="printCustomerName"></p>
+                <p id="printCustomerAddress"></p>
+                <p id="printCustomerCityStateZip"></p>
+                <p id="printCustomerPhone"></p>
+                <p id="printCustomerEmail"></p>
+            </div>
+            <div class="job-site">
+                <h3>Job Site:</h3>
+                <p id="printJobAddress"></p>
+                <p id="printJobCityStateZip"></p>
+            </div>
+        </div>
+
+        <div class="invoice-service">
+            <p><strong>Service:</strong> <span id="printServiceType"></span></p>
+        </div>
+
+        <table class="invoice-items">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="printLineItems">
+            </tbody>
+        </table>
+
+        <div class="invoice-totals">
+            <div class="totals-row">
+                <span>Subtotal:</span>
+                <span id="printSubtotal"></span>
+            </div>
+            <div class="totals-row">
+                <span>Tax (<span id="printTaxRate"></span>%):</span>
+                <span id="printTax"></span>
+            </div>
+            <div class="totals-row grand-total">
+                <span>Total Due:</span>
+                <span id="printTotal"></span>
+            </div>
+        </div>
+
+        <div class="invoice-notes">
+            <h3>Notes:</h3>
+            <p id="printNotes"></p>
+        </div>
+
+        <div class="invoice-footer">
+            <p><strong>Thank you for your business!</strong></p>
+            <p>My word is my bond, and the job is not complete until you are fully satisfied.</p>
+            <p class="signature">Christopher O'Briant</p>
+            <p class="signature-title">Owner, BlackTop Proz</p>
+        </div>
+    </div>
+
+    <!-- Print Quote Template (Hidden) -->
+    <div id="printQuote" class="print-quote">
+        <div class="invoice-header">
+            <div class="invoice-logo">
+                <div class="logo-placeholder print">LOGO</div>
+            </div>
+            <div class="invoice-company">
+                <h1>BlackTop Proz</h1>
+                <p>Professional Concrete & Gravel Services</p>
+                <p>(601) 813-2533</p>
+                <p>Jackson, MS</p>
+            </div>
+        </div>
+
+        <div class="invoice-title">
+            <h2>QUOTE / ESTIMATE</h2>
+            <div class="invoice-meta">
+                <p><strong>Quote #:</strong> <span id="printQuoteNumber"></span></p>
+                <p><strong>Date:</strong> <span id="printQuoteDate"></span></p>
+                <p><strong>Valid Until:</strong> <span id="printValidUntil"></span></p>
+            </div>
+        </div>
+
+        <div class="invoice-addresses">
+            <div class="bill-to">
+                <h3>Prepared For:</h3>
+                <p id="printQuoteCustomerName"></p>
+                <p id="printQuoteCustomerAddress"></p>
+                <p id="printQuoteCustomerCityStateZip"></p>
+                <p id="printQuoteCustomerPhone"></p>
+                <p id="printQuoteCustomerEmail"></p>
+            </div>
+            <div class="job-site">
+                <h3>Job Site:</h3>
+                <p id="printQuoteJobAddress"></p>
+                <p id="printQuoteJobCityStateZip"></p>
+            </div>
+        </div>
+
+        <div class="invoice-service">
+            <p><strong>Service:</strong> <span id="printQuoteServiceType"></span></p>
+        </div>
+
+        <table class="invoice-items">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="printQuoteLineItems">
+            </tbody>
+        </table>
+
+        <div class="invoice-totals">
+            <div class="totals-row">
+                <span>Subtotal:</span>
+                <span id="printQuoteSubtotal"></span>
+            </div>
+            <div class="totals-row">
+                <span>Tax (<span id="printQuoteTaxRate"></span>%):</span>
+                <span id="printQuoteTax"></span>
+            </div>
+            <div class="totals-row grand-total">
+                <span>Estimated Total:</span>
+                <span id="printQuoteTotal"></span>
+            </div>
+        </div>
+
+        <div class="invoice-notes">
+            <h3>Notes & Conditions:</h3>
+            <p id="printQuoteNotes"></p>
+        </div>
+
+        <div class="quote-acceptance">
+            <h3>Acceptance</h3>
+            <p>To accept this quote, please sign below and return with your deposit.</p>
+            <div class="signature-lines">
+                <div class="sig-line">
+                    <div class="line"></div>
+                    <p>Customer Signature</p>
+                </div>
+                <div class="sig-line">
+                    <div class="line"></div>
+                    <p>Date</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoice-footer">
+            <p><strong>Thank you for considering BlackTop Proz!</strong></p>
+            <p>My word is my bond, and the job is not complete until you are fully satisfied.</p>
+            <p class="signature">Christopher O'Briant</p>
+            <p class="signature-title">Owner, BlackTop Proz</p>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
