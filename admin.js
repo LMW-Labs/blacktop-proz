@@ -628,6 +628,65 @@ function closeQuotePreview() {
     document.getElementById('quotePreviewModal').style.display = 'none';
 }
 
+function editQuote(quoteNumber) {
+    const quotes = getQuotes();
+    const quote = quoteNumber ? quotes.find(q => q.quoteNumber === quoteNumber) : window.tempQuote;
+    if (!quote) return;
+
+    // Close modal if open
+    document.getElementById('quotePreviewModal').style.display = 'none';
+
+    // Go to quote section
+    goToSection('newQuote');
+
+    // Populate customer info
+    document.getElementById('customerName').value = quote.customerName || '';
+    document.getElementById('customerPhone').value = quote.customerPhone || '';
+    document.getElementById('customerEmail').value = quote.customerEmail || '';
+    document.getElementById('customerAddress').value = quote.customerAddress || '';
+    document.getElementById('jobSite').value = quote.jobSite || '';
+    document.getElementById('quoteNotes').value = quote.notes || '';
+
+    // Clear all service selections first
+    const pricing = getPricing();
+    pricing.forEach(service => {
+        const checkbox = document.getElementById('svc_' + service.id);
+        const qtyInput = document.getElementById('qty_' + service.id);
+        const priceInput = document.getElementById('price_' + service.id);
+        const serviceItem = document.querySelector('[data-service-id="' + service.id + '"]');
+
+        if (checkbox) checkbox.checked = false;
+        if (qtyInput) qtyInput.value = '';
+        if (serviceItem) serviceItem.classList.remove('selected');
+    });
+
+    // Populate line items from quote
+    if (quote.lineItems && quote.lineItems.length > 0) {
+        quote.lineItems.forEach(item => {
+            const service = pricing.find(s => s.name === item.description || s.id === item.serviceId);
+            if (service) {
+                const checkbox = document.getElementById('svc_' + service.id);
+                const qtyInput = document.getElementById('qty_' + service.id);
+                const priceInput = document.getElementById('price_' + service.id);
+                const serviceItem = document.querySelector('[data-service-id="' + service.id + '"]');
+
+                if (checkbox) checkbox.checked = true;
+                if (qtyInput) qtyInput.value = item.quantity || '';
+                if (priceInput) priceInput.value = item.unitPrice || '';
+                if (serviceItem) serviceItem.classList.add('selected');
+            }
+        });
+    }
+
+    // Store that we're editing this quote
+    window.editingQuoteNumber = quote.quoteNumber;
+
+    // Update summary
+    updateQuoteSummary();
+
+    showToast('Quote loaded for editing', 'info');
+}
+
 function saveAndEmailQuote() {
     const quote = window.tempQuote;
     quote.status = 'sent';
@@ -726,6 +785,7 @@ function loadQuotesList(filter = 'all') {
                 <span class="list-card-amount">${formatCurrency(quote.total)}</span>
                 <div class="list-card-actions">
                     <button class="btn btn-sm btn-secondary" onclick="viewQuote('${quote.quoteNumber}')">View</button>
+                    <button class="btn btn-sm btn-primary" onclick="editQuote('${quote.quoteNumber}')">Edit</button>
                     <button class="btn btn-sm btn-success" onclick="convertQuoteToInvoice('${quote.quoteNumber}')">Invoice</button>
                 </div>
             </div>
