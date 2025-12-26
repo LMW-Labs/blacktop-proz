@@ -147,4 +147,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Image Gallery Slider
+    const galleries = document.querySelectorAll('.image-gallery');
+
+    galleries.forEach(function(gallery) {
+        const slides = gallery.querySelectorAll('.gallery-slide');
+        const dots = gallery.querySelectorAll('.gallery-dot');
+        const prevBtn = gallery.querySelector('.gallery-prev');
+        const nextBtn = gallery.querySelector('.gallery-next');
+        let currentSlide = 0;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            currentSlide = index;
+
+            slides.forEach(function(slide) {
+                slide.classList.remove('active');
+            });
+            dots.forEach(function(dot) {
+                dot.classList.remove('active');
+            });
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+            });
+        }
+
+        dots.forEach(function(dot, index) {
+            dot.addEventListener('click', function() {
+                stopAutoSlide();
+                showSlide(index);
+                startAutoSlide();
+            });
+        });
+
+        // Start auto-sliding
+        startAutoSlide();
+
+        // Pause on hover
+        gallery.addEventListener('mouseenter', stopAutoSlide);
+        gallery.addEventListener('mouseleave', startAutoSlide);
+    });
+
 });
