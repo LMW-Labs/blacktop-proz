@@ -68,30 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
-    // Form submission handling
-    const contactForm = document.querySelector('.contact-form');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-
-            // Basic validation
-            if (!data.name || !data.phone) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            // Show success message (in production, this would send to a server)
-            alert('Thank you for your request! We will contact you within 24 hours to discuss your project.');
-
-            // Reset form
-            this.reset();
-        });
-    }
+    // Form is now handled by FormSubmit.co - no JavaScript needed
+    // Form submissions will be sent directly to info@blacktopproz.com
 
     // Intersection Observer for animations
     const observerOptions = {
