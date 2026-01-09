@@ -1311,3 +1311,126 @@ ul {
         font-size: 2rem;
     }
 }
+
+/* ============================================
+   Blog Styles
+   ============================================ */
+.blog-hero {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+    margin-top: 70px;
+    text-align: center;
+}
+
+.blog-hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: var(--spacing-sm);
+}
+
+.blog-hero p {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+}
+
+.blog-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
+    min-height: 50vh;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.blog-card {
+    background: var(--color-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.blog-card-content {
+    padding: var(--spacing-md);
+}
+
+.blog-card-date {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xs);
+}
+
+.blog-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-primary);
+}
+
+.blog-card p {
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+}
+
+.blog-card .read-more {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.blog-card .read-more:hover {
+    text-decoration: underline;
+}
+
+.no-posts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.no-posts h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.no-posts p {
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav a.active {
+    color: var(--color-accent);
+}
+
+@media (max-width: 992px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .blog-hero h1 {
+        font-size: 2rem;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+}
