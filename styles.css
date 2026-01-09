@@ -177,9 +177,10 @@ ul {
 }
 
 .hero-logo {
-    height: 280px;
+    display: block;
+    height: 350px;
     width: auto;
-    margin-bottom: var(--spacing-md);
+    margin: 0 auto var(--spacing-lg) auto;
     filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.6));
     animation: fadeInDown 1s ease-out;
 }
@@ -1187,7 +1188,7 @@ ul {
     }
 
     .hero-logo {
-        height: 180px;
+        height: 220px;
     }
 
     .logo-text {
