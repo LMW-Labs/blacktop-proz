@@ -4,16 +4,17 @@
 
 /* CSS Variables */
 :root {
-    --color-primary: #1a1a1a;
-    --color-secondary: #2d2d2d;
-    --color-accent: #d4a853;
-    --color-accent-dark: #b8923f;
+    --color-primary: #0a0a0a;
+    --color-secondary: #1a1a1a;
+    --color-accent: #00bfff;
+    --color-accent-dark: #0099cc;
+    --color-accent-light: #33ccff;
     --color-text: #333333;
     --color-text-light: #666666;
     --color-text-muted: #888888;
     --color-background: #ffffff;
-    --color-background-alt: #f8f8f8;
-    --color-background-dark: #1a1a1a;
+    --color-background-alt: #f5f5f5;
+    --color-background-dark: #0a0a0a;
     --color-border: #e0e0e0;
     --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --container-width: 1200px;
@@ -156,6 +157,36 @@ ul {
 
 .logo span {
     color: var(--color-accent);
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+}
+
+.footer-logo {
+    height: 100px;
+    width: auto;
+    margin-bottom: var(--spacing-sm);
+}
+
+.hero-logo {
+    height: 200px;
+    width: auto;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+    animation: fadeInDown 1s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .nav ul {
@@ -1147,6 +1178,14 @@ ul {
 
     .mobile-menu-btn {
         display: flex;
+    }
+
+    .hero-logo {
+        height: 150px;
+    }
+
+    .logo-img {
+        height: 55px;
     }
 
     .nav.active {
