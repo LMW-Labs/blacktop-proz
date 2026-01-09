@@ -159,22 +159,28 @@ ul {
     color: var(--color-accent);
 }
 
-.logo-img {
-    height: 70px;
-    width: auto;
+.logo-text {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--color-background);
+    letter-spacing: -1px;
+}
+
+.logo-text span {
+    color: var(--color-accent);
 }
 
 .footer-logo {
-    height: 100px;
+    height: 120px;
     width: auto;
     margin-bottom: var(--spacing-sm);
 }
 
 .hero-logo {
-    height: 200px;
+    height: 280px;
     width: auto;
     margin-bottom: var(--spacing-md);
-    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.6));
     animation: fadeInDown 1s ease-out;
 }
 
@@ -1181,11 +1187,11 @@ ul {
     }
 
     .hero-logo {
-        height: 150px;
+        height: 180px;
     }
 
-    .logo-img {
-        height: 55px;
+    .logo-text {
+        font-size: 1.5rem;
     }
 
     .nav.active {
